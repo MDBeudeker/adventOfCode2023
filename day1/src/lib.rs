@@ -40,7 +40,6 @@ pub fn add_numbers_2(string: String) -> i32 {
         ("nine".to_string() , 9),
     ]);
     
-    let mut ab: i32 = 0;
     let mut sum:i32 = 0;
     
     for line  in string.lines() {
@@ -74,7 +73,7 @@ pub fn add_numbers_2(string: String) -> i32 {
             b = *last;
         }
         
-        ab = a *10 + b;
+        let ab = a *10 + b;
         sum = sum + ab;
     }
     
