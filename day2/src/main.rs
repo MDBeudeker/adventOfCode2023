@@ -1,5 +1,5 @@
 use std::fs;
-use day2::count_cubes;
+use day2::{count_cubes,sum_cubes};
 
 fn main() {
 
@@ -12,8 +12,12 @@ fn main() {
     //     sum = sum + count_cubes(first_line.to_string());
     // } 
 
+    // for line in contents.lines(){
+    //     sum = sum + count_cubes(line.to_string());
+    // } 
+
     for line in contents.lines(){
-        sum = sum + count_cubes(line.to_string());
+        sum = sum + sum_cubes(line.to_string());
     } 
     println!("the sum of all valid game numbers is {}", sum)
 }
