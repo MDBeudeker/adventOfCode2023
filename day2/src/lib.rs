@@ -67,15 +67,9 @@ pub fn sum_cubes (string: String) -> i32{
     
 }
 
-fn add_up_cubes(turn:&str) -> i32 {
-    
+fn add_up_cubes(turn: &str) -> i32 {
     let mut highest_number: Vec<(i32, &str)> = Vec::new();
     let mut sum = 1;
-    let cube_possibilities = HashMap::from([
-        ("red".to_string(), 12),
-        ("green".to_string(), 13),
-        ("blue".to_string()  , 14),
-        ]);
 
     let sets: Vec<&str> = turn.split(", ").collect();
 
@@ -84,7 +78,7 @@ fn add_up_cubes(turn:&str) -> i32 {
         let color = elements[1];
         let number = elements[0].parse::<i32>().unwrap();
         //println!("{}", set);
-        if let Some((existing_number, &mut _)) = highest_number
+        if let Some((existing_number, _)) = highest_number // chatgpt magic
             .iter_mut()
             .find(|(_, c)| *c == color)
         {
