@@ -53,47 +53,38 @@ pub fn sum_cubes (string: String) -> i32{
     let mut counter = 0;
     let gameid: i32 = gamecontents[0].split_whitespace().nth(1).unwrap().parse().unwrap(); // chatgpt magic
     
-    let mut sumcubes: i32 = 0;
+    let mut sumcubes: i32 = 1;
+    let mut highest_number: Vec<(i32, &str)> = Vec::new();
     
     println!("game id is {:?}", gameid);
     for turn in turns {
-        counter = counter+1;
-        sumcubes = add_up_cubes(turn);
-        println!("turn {}: {}, sum: {}", counter, turn, sumcubes);
+
+        let sets: Vec<&str> = turn.split(", ").collect();
+        
+        for set in sets{
+            let elements: Vec<&str> = set.split_whitespace().collect();
+            let color = elements[1];
+            let number = elements[0].parse::<i32>().unwrap();
+            //println!("{}", set);
+            if let Some((existing_number, _)) = highest_number // chatgpt magic
+                .iter_mut()
+                .find(|(_, c)| *c == color)
+            {
+                *existing_number = std::cmp::max(*existing_number, number);
+            } else {
+                highest_number.push((number, color));
+            }
+        }
+        
     }
     //println!("{}", &gamecontents.next().unwrap());
     
+    println!("{:?}", highest_number);
+    for number in &highest_number{
+        sumcubes = sumcubes * number.0;
+    }
+    counter = counter+1;
+    println!("{} sum: {}", string, sumcubes);
     return sumcubes
     
-}
-
-fn add_up_cubes(turn: &str) -> i32 {
-    let mut highest_number: Vec<(i32, &str)> = Vec::new();
-    let mut sum = 1;
-
-    let sets: Vec<&str> = turn.split(", ").collect();
-
-    for set in sets{
-        let elements: Vec<&str> = set.split_whitespace().collect();
-        let color = elements[1];
-        let number = elements[0].parse::<i32>().unwrap();
-        //println!("{}", set);
-        if let Some((existing_number, _)) = highest_number // chatgpt magic
-            .iter_mut()
-            .find(|(_, c)| *c == color)
-        {
-            *existing_number = std::cmp::max(*existing_number, number);
-        } else {
-            highest_number.push((number, color));
-        
-        }
-    }
-
-    for number in &highest_number{
-        sum = sum * number.0;
-    }
-    println!("sum: {}", sum);
-
-    sum
-
 }
