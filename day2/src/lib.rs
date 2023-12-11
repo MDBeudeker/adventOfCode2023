@@ -32,10 +32,14 @@ fn verify_turn(turn:&str) -> bool {
     let sets: Vec<&str> = turn.split(", ").collect();
 
     for set in sets{
-        println!("{}", set);
-        for (color, count) in &cube_possibilities {
-            let colory = set.find(color);
-            println!("{:?}", colory)
+        //println!("{}", set);
+        for (color, &count) in &cube_possibilities {
+            let elements: Vec<&str> = set.split_whitespace().collect();
+            if elements[1] == color {
+                if elements[0].parse::<i32>().unwrap() > count {
+                    return false
+                }
+            }
         }
     }
 
