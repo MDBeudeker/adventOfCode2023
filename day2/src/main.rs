@@ -12,9 +12,9 @@ fn main() {
     //     sum = sum + count_cubes(first_line.to_string());
     // } 
 
-    // for line in contents.lines(){
-    //     sum = sum + count_cubes(line.to_string());
-    // } 
+    for line in contents.lines(){
+        sum = sum + count_cubes(line.to_string());
+    } 
 
     for line in contents.lines(){
         sum = sum + sum_cubes(line.to_string());
