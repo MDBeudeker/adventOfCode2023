@@ -17,13 +17,15 @@ fn main() {
 
     let pointer_vec = vec![
         0,
+        width + 2, // extra windows offset
         width + 1,
         width,
-        width - 1,
+        // width -1, // linux offset
         -2,
+        -width - 4, // extra windows offset
         -width - 3,
         -width - 2,
-        -width - 1,
+        //-width - 1, // linux offset
     ];
 
     let mut empty = true;
