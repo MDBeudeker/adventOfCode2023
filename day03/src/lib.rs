@@ -10,18 +10,7 @@ pub fn sum_parts(contents: String) -> u32 {
     let char_vec: Vec<char> = contents.chars().collect();
     let mut position = 0;
 
-    let pointer_vec = vec![
-        0,
-        width + 2, // extra windows offset
-        width + 1,
-        width,
-        // width -1, // linux offset
-        -2,
-        -width - 4, // extra windows offset
-        -width - 3,
-        -width - 2,
-        //-width - 1, // linux offset
-    ];
+    let pointer_vec = createpointervec(width);
 
     let mut empty = true;
     let mut valid = false;
@@ -88,18 +77,7 @@ pub fn sum_gear_parts(contents: String) -> u32 {
     let char_vec: Vec<char> = contents.chars().collect();
     let mut position = 0;
 
-    let pointer_vec = vec![
-        0,
-        width + 2, // extra windows offset
-        width + 1,
-        width,
-        // width -1, // linux offset
-        -2,
-        -width - 4, // extra windows offset
-        -width - 3,
-        -width - 2,
-        //-width - 1, // linux offset
-    ];
+    let pointer_vec = createpointervec(width);
 
     let mut empty = true;
     let mut valid = false;
@@ -192,4 +170,30 @@ pub fn sum_gear_parts(contents: String) -> u32 {
 
 fn is_special_char(c: char, query: &str) -> bool {
     query.contains(c)
+}
+
+fn createpointervec(width:i32) -> Vec<i32>{
+    if cfg!(target_os = "windows") {
+    vec![
+        0,
+        width + 2,
+        width + 1,
+        width,
+        -2,
+        -width - 4,
+        -width - 3,
+        -width - 2,
+    ]
+} else {
+    // Assume Linux or other Unix-like systems
+    vec![
+        0,
+        width + 1,
+        width,
+        -2,
+        -width - 3,
+        -width - 2,
+        -width - 1,
+    ]
+}
 }
