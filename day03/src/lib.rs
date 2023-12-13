@@ -100,7 +100,7 @@ pub fn sum_gear_parts(contents: String) -> u32 {
                 let next_index = (position as i32 + pointer) as usize;
                 if let Some(next_char) = char_vec.get(next_index) {
                     //println!("current digit {}, next to {}", digit, next_char);
-                    if is_special_char(*next_char,"*") {
+                    if is_special_char(*next_char, "*") {
                         //println!("special character {} found", *next_char);
                         valid = true;
                         gearposition = position as i32 + pointer;
@@ -129,12 +129,11 @@ pub fn sum_gear_parts(contents: String) -> u32 {
             position += 1;
         }
     }
-    println!("{:?}", parts.clone());
+    //println!("{:?}", parts.clone());
     println!("removing duplicate parts...");
 
     let mut duplicates = Vec::new();
     let mut singles = Vec::new();
-
 
     for &(_, second_element) in &parts {
         if singles.contains(&second_element) {
@@ -148,52 +147,59 @@ pub fn sum_gear_parts(contents: String) -> u32 {
         }
     }
 
-    let mut filtered_vector: Vec<_> = parts.clone().into_iter().filter(|&(_, second_element)| duplicates.contains(&second_element)).collect();
+    let mut filtered_vector: Vec<_> = parts
+        .clone()
+        .into_iter()
+        .filter(|&(_, second_element)| duplicates.contains(&second_element))
+        .collect();
     filtered_vector.sort_by(|a, b| a.1.cmp(&b.1));
-    println!("Original vector: {:?}", parts);
-    println!("Filtered vector: {:?}", filtered_vector.clone());
+    //println!("Original vector: {:?}", parts);
+    //println!("Filtered vector: {:?}", filtered_vector.clone());
 
     let mut sum: u32 = 0;
 
     let mut counter = 0;
     for window in filtered_vector.windows(2) {
-        if counter % 2 == 0
-        {sum += window[0].0 * window[1].0; println!("sum {} is{} times {}", sum, window[0].0, window[1].0)}
-        counter +=1
+        if counter % 2 == 0 {
+            sum += window[0].0 * window[1].0;
+            //println!("sum {} is{} times {}", sum, window[0].0, window[1].0)
+        }
+        counter += 1
     }
 
     //147787784 too high
     sum
-
-
 }
 
 fn is_special_char(c: char, query: &str) -> bool {
     query.contains(c)
 }
 
-fn createpointervec(width:i32) -> Vec<i32>{
+fn createpointervec(width: i32) -> Vec<i32> {
     if cfg!(target_os = "windows") {
-    vec![
-        0,
-        width + 2,
-        width + 1,
-        width,
-        -2,
-        -width - 4,
-        -width - 3,
-        -width - 2,
-    ]
-} else {
-    // Assume Linux or other Unix-like systems
-    vec![
-        0,
-        width + 1,
-        width,
-        -2,
-        -width - 3,
-        -width - 2,
-        -width - 1,
-    ]
-}
+        println!("hoi");
+        vec![
+            0,
+            width + 2,
+            width + 1,
+            width,
+            -2,
+            -width - 4,
+            -width - 3,
+            -width - 2,
+        ]
+    } else {
+        // Assume Linux or other Unix-like systems
+        println!("doei");
+        vec![
+            0,
+            width + 1,
+            width + 0,
+            width - 1,
+            -2,
+            -width - 3,
+            -width - 2,
+            -width - 1,
+        ]
+    }
 }
