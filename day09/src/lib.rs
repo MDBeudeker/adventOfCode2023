@@ -9,6 +9,8 @@ pub fn interpolate(string: String) -> i32 {
     let mut result_vec = vector_difference(&path_vector, &mut empty_vec);
     result_vec.insert(0, path_vector.clone());
     println! {"new vec is {:?}", result_vec}
+    result_vec = vector_extrapolate(&mut result_vec);
+
     1
 }
 
@@ -28,4 +30,13 @@ fn vector_difference(vec: &Vec<i32>, res_vec: &mut Vec<Vec<i32>>) -> Vec<Vec<i32
     } else {
         res_vec.clone()
     }
+}
+
+fn vector_extrapolate(input_vec: &mut Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    let mut new_vec = Vec::new();
+    for vector in input_vec.iter().rev() {
+        new_vec.push(vector);
+        println!("{:?}", new_vec);
+    }
+    vec![vec![1], vec![2]]
 }
