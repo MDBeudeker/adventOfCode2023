@@ -3,7 +3,7 @@ use std::collections::HashMap;
 pub fn count_cubes (string: String) -> i32{
     let gamecontents: Vec<&str> = string.split(": ").collect();
     let turns: Vec<&str> =  gamecontents[1].split("; ").collect();
-    // let mut counter = 0;
+    let mut counter = 0;
     let gameid: i32 = gamecontents[0].split_whitespace().nth(1).unwrap().parse().unwrap(); // chatgpt magic
 
     let mut valid: bool = true;
@@ -50,7 +50,7 @@ fn verify_turn(turn:&str) -> bool {
 pub fn sum_cubes (string: String) -> i32{
     let gamecontents: Vec<&str> = string.split(": ").collect();
     let turns: Vec<&str> =  gamecontents[1].split("; ").collect();
-    let mut counter = 0;
+    //let mut counter = 0;
     let gameid: i32 = gamecontents[0].split_whitespace().nth(1).unwrap().parse().unwrap(); // chatgpt magic
     
     let mut sumcubes: i32 = 1;
@@ -83,7 +83,7 @@ pub fn sum_cubes (string: String) -> i32{
     for number in &highest_number{
         sumcubes = sumcubes * number.0;
     }
-    counter = counter+1;
+    //counter = counter+1;
     println!("{} sum: {}", string, sumcubes);
     return sumcubes
     
