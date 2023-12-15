@@ -2,10 +2,7 @@ use std::collections::HashMap;
 
 pub fn walk(contents: String, position: u32) -> u32 {
     let char_vec: Vec<char> = contents.chars().collect();
-    let mut position_vec: Vec<u32> = vec![]; // i think i have to change this into a 2 dimensional vector containing the positions of 2 paths
-                                             // then i iterate over this vector and save the new position her until they are equal,
-                                             // and then increase the counter for each step and return the value of the counter
-    position_vec.push(position, position);
+    let mut position_hm = HashMap::new();
 
     let mut width: i32 = 0;
     if let Some(first_line) = contents.lines().next() {
@@ -14,16 +11,14 @@ pub fn walk(contents: String, position: u32) -> u32 {
     }
     let mut counter = 0;
     let pt_hm = createpointerhm(width);
-    let position1 = position.clone();
-    let position2 = position.clone();
     //let println!("{:?}", pt_hm);
     //while { // the while loop has to go on until the position of the two paths are equal
     for (key, value) in pt_hm {
         let dx = (position as i32 + value) as usize;
         if let Some(next_char) = char_vec.get(dx) {
             if key.contains(*next_char) {
-                println!("Hey I found a {} at position {}", next_char, dx);
-                position_vec.push(position);
+                println!("I found a {} at position {}", next_char, dx);
+                position_hm.insert(next_char, (value, dx));
                 counter += 1;
             }
             // if is_special_char(*next_char, "!@#$%^&-*()+=/") {
@@ -32,7 +27,23 @@ pub fn walk(contents: String, position: u32) -> u32 {
             // }
         };
     }
-    //}
+
+    println!("position vec: {:?}", position_hm);
+    //let next_position_hm = HashMap::new();
+
+    while counter < 5 {
+        println!("hoi");
+        for (key, value) in &position_hm {
+            println!("HOI {} HOI {:?}", key, value);
+            if let Some(next_char) = char_vec.get(value.0 as usize + value.1) {
+                println!("{:?}", next_char);
+            } else {
+                println!("huilie")
+            }
+        }
+        //next_position_hm = next_position_hm.clone();
+        counter += 1;
+    }
 
     counter
 }
